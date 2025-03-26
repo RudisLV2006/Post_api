@@ -35,7 +35,7 @@ class PostController extends Controller implements HasMiddleware
             'body' => 'required',  //4
         ]);
 
-        $post = Post::create($fields);
+        $post = $request->user()->posts()->create($fields);  //5
 
         return $post;
     }
