@@ -89,10 +89,17 @@ class PostController extends Controller implements HasMiddleware
         $fields = $request->validate([
             'title' => 'required|max:255',
             'body' => 'required',
-            'post_status_id' => 'required|in:' . PostStatus::STATUS_PUBLIC . ',' . PostStatus::STATUS_PRIVATE,
+            'post_status' => 'required|in:' . PostStatus::STATUS_PUBLIC . ',' . PostStatus::STATUS_PRIVATE,
         ]);
 
-        $post->update($fields);
+        $statusId = PostStatus::where('name', $fields['post_status'])->first()->id;
+
+        $post->update([
+            'title' => $fields['title'],
+            'body' => $fields['body'],
+            'post_status_id' => $statusId,
+            // Don't change user_id because it should not be updated
+        ]);
 
         return $post;
     }
