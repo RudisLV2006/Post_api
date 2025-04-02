@@ -7,6 +7,7 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\Gate;
 
 class CommentController extends Controller implements HasMiddleware
 {
@@ -18,13 +19,13 @@ class CommentController extends Controller implements HasMiddleware
     }
     public function index(Post $post)
     {
-        return $post->comments()->get();
+        return $post->comments;
     }
     public function store(Request $request, Post $post)
     {
         $request->validate(
             [
-                "text" => "required"
+                "text" => "required|max:255"
             ]
         );
 
@@ -38,6 +39,16 @@ class CommentController extends Controller implements HasMiddleware
 
         return [
             "message" => "Comment has been created"
+        ];
+    }
+    public function destroy(Post $post, Comment $comment)
+    {
+
+        Gate::authorize('delete', $comment);
+
+        $comment->delete();
+        return [
+            "message" => "Succefully deleted"
         ];
     }
 }

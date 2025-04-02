@@ -12,8 +12,9 @@ Route::get('/user', function (Request $request) {
 
 Route::resource('posts', PostController::class);
 Route::post('posts/{post}/comment', [CommentController::class, "store"]);
-Route::get('posts/{post}/comments', [CommentController::class, "index"]);
+Route::get('posts/{post}/comment', [CommentController::class, "index"])->name("comment.index");
+Route::delete('posts/{post}/comment/{comment}', [CommentController::class, "destroy"]);
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
-Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');;
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
