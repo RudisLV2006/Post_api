@@ -29,13 +29,10 @@ class CommentController extends Controller implements HasMiddleware
             ]
         );
 
-        $comment = new Comment();
-        $comment->text = $request->text;
-
-        $comment->post_id = $post->id;
-        $comment->user_id = $request->user()->id;
-
-        $comment->save();
+        $request->user()->comment()->create([
+            "post_id" => $post->id,
+            "text" => $request->text,
+        ]);
 
         return [
             "message" => "Comment has been created"
