@@ -62,9 +62,8 @@ class PostController extends Controller implements HasMiddleware
 
         $statusId = PostStatus::where('name', $fields['post_status'])->first()->id;
 
-        $post = Post::create([
+        $post = $request->user()->posts()->create([
             'title' => $fields['title'],
-            'user_id' => auth()->id(),
             'body' => $fields['body'],
             'post_status_id' => $statusId,  // Store the status ID
         ]);
