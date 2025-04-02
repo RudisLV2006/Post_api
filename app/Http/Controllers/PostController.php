@@ -57,7 +57,7 @@ class PostController extends Controller implements HasMiddleware
         $fields = $request->validate([
             'title' => 'required|max:255',
             'body' => 'required',  //4
-            'post_status' => 'required|in:' . PostStatus::STATUS_PUBLIC . ',' . PostStatus::STATUS_PRIVATE,
+            'post_status' => 'required|exists:post_statuses,name',
         ]);
 
         $statusId = PostStatus::where('name', $fields['post_status'])->first()->id;
@@ -88,7 +88,7 @@ class PostController extends Controller implements HasMiddleware
         $fields = $request->validate([
             'title' => 'required|max:255',
             'body' => 'required',
-            'post_status' => 'required|in:' . PostStatus::STATUS_PUBLIC . ',' . PostStatus::STATUS_PRIVATE,
+            'post_status' => 'required|exists:post_statuses,name',
         ]);
 
         $statusId = PostStatus::where('name', $fields['post_status'])->first()->id;

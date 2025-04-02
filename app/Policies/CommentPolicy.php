@@ -11,7 +11,12 @@ class CommentPolicy
 {
     public function delete(User $user, Comment $comment): Response
     {
-
-        return $user->id === $comment->user_id ? Response::allow() : Response::deny("You do not own this comment");
+        if ($comment->user_id === $user->id) {
+            return Response::allow();
+        }
+        if ($comment->post->user_id === $user->id) {
+            return Response::allow();
+        }
+        return Response::deny("You do not own this comment or not author");
     }
 }
