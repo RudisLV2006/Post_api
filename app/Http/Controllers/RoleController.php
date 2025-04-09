@@ -9,7 +9,7 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Gate;
 
-class RoleController extends Controller implements HasMiddleware
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
