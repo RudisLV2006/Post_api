@@ -132,7 +132,10 @@ class PostController extends Controller implements HasMiddleware
         ];
     }
 
-    public function addRole(){
-        
+    public function addRole(Request $request)
+    {
+        $fields = $request->validate([
+            'role' => "required|exists:roles,name"
+        ]);
     }
 }

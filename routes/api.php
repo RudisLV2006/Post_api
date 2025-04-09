@@ -11,6 +11,7 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::apiResource('posts', PostController::class);
+Route::post('user/addrole', [PostController::class, "addRole"])->name("user.addrole");
 Route::patch('posts/{post}/status', [PostController::class, "changeStatus"])->name("post.status");
 Route::post('posts/{post}/comment', [CommentController::class, "store"]);
 Route::get('posts/{post}/comment', [CommentController::class, "index"])->name("comment.index");
