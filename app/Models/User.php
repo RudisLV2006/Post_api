@@ -55,4 +55,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comment::class); //6
     }
+    // app/Models/User.php
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
 }
