@@ -131,4 +131,8 @@ class PostController extends Controller implements HasMiddleware
             "Post status updated to" => $post->post_status_id
         ];
     }
+
+    public function addRole(){
+        
+    }
 }

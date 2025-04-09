@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -17,6 +18,13 @@ class AuthController extends Controller
         ]);
 
         $user = User::create($fields); //1
+
+        $guestRole = Role::where('name', 'guest')->first();
+
+        if ($guestRole) {
+            // Attach the "guest" role to the user
+            $user->roles()->attach($guestRole->id); // Assuming you have a `roles()` relationship in your User model
+        }
 
         $token = $user->createToken($request->name);
 
