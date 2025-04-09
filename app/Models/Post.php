@@ -24,4 +24,11 @@ class Post extends Model
     {
         return $this->belongsTo(PostStatus::class, 'post_status_id');
     }
+
+    // app/Models/User.php
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
 }
