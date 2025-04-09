@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Gate;
 
-class RoleController extends Controller
+class RoleController extends Controller implements HasMiddleware
 {
     /**
      * Display a listing of the resource.
