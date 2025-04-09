@@ -134,6 +134,7 @@ class PostController extends Controller implements HasMiddleware
 
     public function addRole(Request $request)
     {
+        Gate::authorize("isAdmin");
         $fields = $request->validate([
             'role' => "required|exists:roles,name"
         ]);
